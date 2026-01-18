@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"             
+             x:Class="PoolChemicals.View.SettingsPage"
+			 xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+			 x:DataType="viewmodel:SettingsViewModel"
+             Shell.NavBarIsVisible="{Binding IsValid}"
+             Title="Settings">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+            <Setter Property="FontAttributes" Value="Bold,Italic"/>
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+
+        <VerticalStackLayout>
+            <Label Text="Adjust your pool settings below:"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   HorizontalTextAlignment="Center"
+                   Padding="10"/>
+            <!--<VerticalStackLayout IsVisible="true">
+                <Label Text="{Binding Settings.Standard,StringFormat='Standard: {0}'}"/>
+                <Label Text="{Binding Settings.StandardIndex,StringFormat='Standard Index: {0}'}"/>
+                <Label Text="{Binding Logic.SaltReading,StringFormat='Salt Reading: {0}'}"/>
+                <Label Text="{Binding Logic.WaterTemp}"/>
+                <Label Text="{Binding Logic.PHReading}"/>
+                <Label Text="{Binding Logic.AlkalineReading}"/>
+                <Label Text="{Binding Logic.CalciumReading}"/>
+                <Label Text="{Binding Logic.CYAReading}"/>
+                <Label Text="{Binding Logic.BorateReading}"/>
+            </VerticalStackLayout>-->
+            <!--<Label Text="{Binding SaltReading}"/>-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black" Padding="10" >
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Pool Volume:"
+                                   HorizontalTextAlignment="Start"
+                                   Padding="3"/>
+                            <editors:SfNumericEntry x:Name="volumeEntry" Maximum="50000" 
+                                    MaximumNumberDecimalDigits="0" 
+                                    FontSize="15" FontAttributes="Bold"
+                                    AllowNull="False"
+
+                                    Value="{Binding Settings.Volume}"/>
+                            <Label Text="      Unit: "
+                                   HorizontalTextAlignment="Start"/>
+                            <Picker x:Name="UnitPicker"
+                                    Title="Units"
+                                    FontAttributes="Bold"
+                                    ItemsSource="{Binding StandardUnits}"
+                                    SelectedIndex="{Binding Settings.StandardIndex}"
+                                    SelectedItem="{Binding Settings.Standard}">
+                            </Picker>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Acid: " 
+                                   HorizontalTextAlignment="Start"/>
+                            <Picker x:Name="AcidType" 
+                                    Title="Acid"
+                                    FontAttributes="Bold"
+                                    ItemsSource="{Binding Settings.AcidNames}"   
+                                    SelectedIndex="{Binding Settings.AcidPickerIndex}"
+                                    SelectedItem="{Binding Settings.AcidPickerItem}">
+                            </Picker>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            <!--Salt Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Salt Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry x:Name="saltTargetEntry" Minimum="{Binding Settings.SaltLower}" Maximum="{Binding Settings.SaltUpper}" 
+                                    MaximumNumberDecimalDigits="0" 
+                                    FontSize="15" FontAttributes="Bold"
+                                    Grid.Row="2"
+                                    AllowNull="False"
+                                    HorizontalTextAlignment="Center"
+                                    Value="{Binding Settings.SaltTarget}"/>
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="2500" Maximum="{Binding Settings.SaltUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.SaltLower}"/>
+                        <Label Text="Upper Range" 
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.SaltLower}" Maximum="3400" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.SaltUpper}"/>
+
+                    </Grid>
+                </Border>
+
+            </Grid>
+            <!--FC Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Free Chlorine Settings"
+                           HorizontalTextAlignment="Center"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.FCLower}" Maximum="{Binding Settings.FCUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.FCTarget}"/>
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="1" Maximum="{Binding Settings.FCUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.FCLower}"/>
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.FCLower}" Maximum="5" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.FCTarget}"/>
+                        <Label Text="Chlorine Type: "
+                               HorizontalTextAlignment="Start"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <Picker x:Name="ChlorineType" 
+                                Title="Chlorine"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center"
+                                Grid.Row="3" Grid.Column="1"
+                                ItemsSource="{Binding Settings.ChlorineType}"
+                                SelectedIndex="{Binding Settings.ChlorinePickerIndex}"
+                                SelectedItem="{Binding Settings.ChlorinePickerItem}">
+                        </Picker>
+                        <Picker IsVisible="{Binding Logic.BleachVisible}"
+                                Title="Choose"
+                                HorizontalTextAlignment="Center"
+                                FontAttributes="Bold"
+                                Grid.Row="3" Grid.Column="3"
+                                ItemsSource="{Binding Settings.BleachPercent}"
+                                SelectedIndex="{Binding Settings.BleachPickerIndex}"
+                                SelectedItem="{Binding Settings.BleachPickerItem}">
+                        </Picker>
+                        <Label Text="Measure by"
+                               IsVisible="{Binding Logic.FCMeasureIsVisible}"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0"/>
+                        <RadioButton x:Name="RadioWeightFC"
+                                     FontAttributes="None"
+                                     IsVisible="{Binding Logic.FCMeasureIsVisible}"
+                                     Content="Weight"                                     
+                                     Grid.Row="4" Grid.Column="1"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.FCMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="FC-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioWeightBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeFC" 
+                                     IsVisible="{Binding Logic.FCMeasureIsVisible}"                                     
+                                     Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.FCMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"                                     
+                                     Grid.Row="4" Grid.Column="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="FC-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--            PH Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="PH Settings" 
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.PHLower}" Maximum="{Binding Settings.PHUpper}" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.PHTarget}"/>
+                        <Label Text="Lower Range"
+                               Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="7.2" Maximum="{Binding Settings.PHUpper}" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.PHLower}"/>
+
+                        <Label Text="Upper Range"
+                               Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.PHLower}" Maximum="7.8" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.PHUpper}"/>
+
+                        <Label Text="To Raise pH"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Column="0" Grid.Row="3"/>
+                        <Picker x:Name="pHRaiseCorrection" 
+                               Title="Choose"
+                                FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               SelectedIndex="{Binding Settings.PHRaisePickerIndex}"
+                               SelectedItem="{Binding Settings.PHRaisePickerItem}"
+                               Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Soda Ash by Weight</x:String>
+                                    <x:String>Soda Ash by Volume</x:String>
+                                    <x:String>Borax by Weight</x:String>
+                                    <x:String>Borax by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label Text="To Lower pH"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0"/>
+                        <Picker x:Name="pHLowerCorrection" 
+                              Title="Choose"
+                                FontAttributes="Bold"
+                              HorizontalTextAlignment="Center"
+                              SelectedIndex="{Binding Settings.PHLowerPickerIndex}"
+                              SelectedItem="{Binding Settings.PHLowerPickerItem}"
+                              Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Muriatic Acid</x:String>
+                                    <x:String>Dry Acid by Weight</x:String>
+                                    <x:String>Dry Acid by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+                </Border>
+
+
+            </Grid>
+            <!-- Alkalinety Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Alkalinity Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.AlkalineLower}" Maximum="{Binding Settings.AlkalineUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.AlkalineTarget}"/>
+
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="80" Maximum="{Binding Settings.AlkalineUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.AlkalineLower}"/>
+
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.AlkalineLower}" Maximum="120" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.AlkalineUpper}"/>
+
+                        <Label Text="Measure by"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <RadioButton x:Name="RadioWeightAlkaline"
+                            Content="Weight"   
+                                     Grid.Row="3" Grid.Column="1"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.AlkalineMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="Alkaline-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext,  Source={x:Reference RadioWeightAlkaline},x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeAlkaline" 
+                            Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.AlkalineMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"
+                                     Grid.Row="3" Grid.Column="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="Alkaline-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeAlkaline}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!-- Calcium Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Calcium Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CalciumLower}" Maximum="{Binding Settings.CalciumUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.CalciumTarget}"/>
+
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="200" Maximum="{Binding Settings.CalciumUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.CalciumLower}"/>
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CalciumLower}" Maximum="400" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.CalciumUpper}"/>
+
+                        <Label Text="To Raise CH"
+                           Grid.Row="3" Grid.Column="0"/>
+                        <Picker x:Name="CalciumRaiseCorrection" 
+                              Title="Choose"
+                                FontAttributes="Bold"
+                              SelectedIndex="{Binding Settings.CalciumRaisePickerIndex}"
+                              SelectedItem="{Binding Settings.CalciumRaisePickerItem}"
+                              Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Calcium Chloride by Weight</x:String>
+                                    <x:String>Calcium Chloride by Volume</x:String>
+                                    <x:String>Chloride Dihydrate Weight</x:String>
+                                    <x:String>Chloride Dihydrate by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--CYA-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Cyanuric Acid Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CYALower}" Maximum="{Binding Settings.CYAUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.CYATarget}"/>
+
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="20" Maximum="{Binding Settings.CYAUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.CYALower}"/>
+
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CYALower}" Maximum="60" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.CYAUpper}"/>
+
+                        <Label Text="To Raise CYA"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <Picker x:Name="CYARaiseCorrection" 
+                                Title="Choose"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center"
+                                SelectedIndex="{Binding Settings.CYARaisePickerIndex}"
+                                SelectedItem="{Binding Settings.CYARaisePickerItem}"
+                                Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Stabalizer by Weight</x:String>
+                                    <x:String>Stabalizer by Volume</x:String>
+                                    <x:String>Stabalizer liquid</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--Borate Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black" >
+                    <Grid ColumnDefinitions="*,*,*,*,*,*"
+                      RowDefinitions="*,*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+
+                        <Label Text="Borate Settings"
+                            Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" />
+
+                        <Label Text="Target"
+                           Grid.Row="1" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.BorateLower}" Maximum="{Binding Settings.BorateUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateTarget}"/>
+
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="20" Maximum="{Binding Settings.BorateUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateLower}"/>
+
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.BorateLower}" Maximum="60" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateUpper}"/>
+
+                        <Label Text="Measure by"
+                               HorizontalTextAlignment="Start"                               
+                           Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <RadioButton x:Name="RadioWeightBorax"
+                            Content="Weight"  
+                                     Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.BorateMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="Borate-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioWeightBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeBorax" 
+                            Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.BorateMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"
+                                     Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding Logic.RadioButtonChangedCommand}" 
+                                   CommandParameter="Borate-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+                        <Label Text="Borate Adjustment:"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Picker x:Name="BorateType" 
+                                Title="Choose"
+                                FontAttributes="Bold"
+                                SelectedItem="{Binding Settings.BoratePickerItem}"
+                                SelectedIndex="{Binding Settings.BoratePickerIndex}"
+                                Grid.Row="4" Grid.Column="3" >
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Borax</x:String>
+                                    <x:String>Boric acid</x:String>
+                                    <x:String>Tetraborate pentahydrate</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label Text="Include in Calculations"
+                               Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                               HorizontalTextAlignment="End"/>
+                        <CheckBox IsChecked="{Binding Settings.IncludeBorate}"
+                                  Grid.Row="5" Grid.Column="4"
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="Start"/>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid ColumnDefinitions="*,*" Padding="10">
+                <Button Text="Save" 
+                        Grid.Column="0"
+                        Command="{Binding Settings.SaveSettingsCommand}" 
+                        WidthRequest="150"/>
+                <Button Text="Reset" 
+                    Grid.Column="1"
+                    Command="{Binding Settings.ResetSettingsCommand}" 
+                    WidthRequest="150"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

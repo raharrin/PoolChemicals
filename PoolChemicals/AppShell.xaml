@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PoolChemicals.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:PoolChemicals.View"
+    xmlns:waterGuideLine="clr-namespace:PoolChemicals.View"  
+    xmlns:local="clr-namespace:PoolChemicals"
+    Padding="4,0,0,0"
+    x:Name="flyout"
+    Title="PoolChemicals"
+    FlyoutBackgroundColor="{OnPlatform WinUI=Transparent,
+                            Default={AppThemeBinding Light= White,
+                            Dark= Black}}"
+       FlyoutBehavior="{OnPlatform WinUI=Locked, Default=Flyout}">
+
+
+    <ShellContent
+        Title="Home"
+        Icon="home.png"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />   
+    <ShellContent
+        Title="Settings"
+        Icon="settings.jpg"
+        ContentTemplate="{DataTemplate view:SettingsPage}"
+        Route="SettingsPage" />
+
+    <ShellContent
+        Title="Logs"
+        Icon="log.png"
+        ContentTemplate="{DataTemplate view:LogPage}"
+        Route="LogPage" />
+    <ShellContent
+        Title="Email"
+        Icon="log.png"
+        ContentTemplate="{DataTemplate view:EmailPage}"
+        Route="EmailPage" />
+    <ShellContent
+        Title="Pools"
+        IsVisible="False"
+        Icon="log.png"
+        ContentTemplate="{DataTemplate view:PoolPage}"
+        Route="PoolPage" />
+    <ShellContent
+        Title="Guidelines"
+        Icon="water.png"
+        ContentTemplate="{DataTemplate view:WaterGuidelinesPage}"
+        Route="WaterGuidelinesPage" />    
+    <!--<Shell.FlyoutHeader>
+        <Label Margin="{OnPlatform Default='0,0,0,12',
+                                   iOS='0',
+                                   MacCatalyst='0'}"
+               Padding="{OnPlatform Default='4,0',
+                                    iOS='4, 100, 4, 0',
+                                    WinUI='20, 0',
+                                    MacCatalyst='4, 100, 4, 0'}"
+               FontSize="24"
+               HorizontalTextAlignment="Start"
+               IsVisible="{OnPlatform WinUI=false, Default=true}"
+               Text="Toolkit Features"
+               VerticalTextAlignment="Center" />
+        </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Settings"
+                Route="SettingsPage"
+                Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+    </FlyoutItem>-->
+    <!--<FlyoutItem Title="Welcome"
+                Route="WelcomePage"
+                Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+  
+    </FlyoutItem>-->
+</Shell>

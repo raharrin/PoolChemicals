@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"             
+             x:Class="PoolChemicals.View.SettingsPage"
+			 xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+			 x:DataType="viewmodel:BaseViewModel"
+             Shell.NavBarIsVisible="{Binding IsValid}"
+             Title="Settings">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+            <Setter Property="FontAttributes" Value="Bold,Italic"/>
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+
+        <VerticalStackLayout>
+            <!--<Label Text="{Binding SaltReading}"/>-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black" Padding="10" >
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Pool Volume:"
+                                   HorizontalTextAlignment="Start"
+                                   Padding="3"/>
+                            <editors:SfNumericEntry x:Name="volumeEntry" Maximum="50000" 
+                                    MaximumNumberDecimalDigits="0" 
+                                    FontSize="15" FontAttributes="Bold"
+                                    AllowNull="False"
+
+                                    Value="{Binding Settings.Volume}"/>
+                            <!--<Entry Keyboard="Numeric" FontSize="15"  
+                                   MaxLength="6"
+                                                                Unfocused="Validate"
+                                   Text="{Binding Volume}"/>-->
+                            <Label Text="      Unit: "
+                                   HorizontalTextAlignment="Start"/>
+                            <Picker x:Name="UnitPicker"
+                                    Title="Units"
+                                    FontAttributes="Bold"
+                                    SelectedIndex="{Binding Settings.UnitPickerIndex}"
+                                    SelectedItem="{Binding Settings.UnitPickerItem}">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>U.S.</x:String>
+                                        <x:String>Metric</x:String>
+                                        <x:String>Imperial</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Acid: " 
+                                   HorizontalTextAlignment="Start"/>
+                            <Picker x:Name="AcidType" 
+                                    Title="Acid"
+                                    FontAttributes="Bold"
+                                    ItemsSource="{Binding AcidNames}"   
+                                    SelectedIndex="{Binding AcidPickerIndex}"
+                                    SelectedItem="{Binding Settings.AcidPickerItem}">
+                            </Picker>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+                <!--Salt Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Salt Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry x:Name="saltTargetEntry" Minimum="{Binding Settings.SaltLower}" Maximum="{Binding Settings.SaltUpper}" 
+                                    MaximumNumberDecimalDigits="0" 
+                                    FontSize="15" FontAttributes="Bold"
+                                    Grid.Row="2"
+                                    AllowNull="False"
+                                    HorizontalTextAlignment="Center"
+                                    Value="{Binding Settings.SaltTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15" 
+                               Unfocused="UnFocusEvent"
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding SaltTarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding SaltLower}"
+                MaximumValue="{Binding SaltUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry" Binding="{Binding SaltTarget.IsValid}" Value="False">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                        </Entry>-->
+                        
+                        
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="2700" Maximum="{Binding Settings.SaltUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.SaltLower}"/>                        
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding SaltLower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                                    MinimumValue="2700"
+                MaximumValue="{Binding SaltUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+
+                        <Label Text="Upper Range" 
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.SaltLower}" Maximum="3400" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.SaltUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding SaltUpper}"
+                           Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding SaltLower}"
+                                    MaximumValue="3400"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                    </Grid>
+                </Border>
+
+            </Grid>
+            <!--FC Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Free Chlorine Settings"
+                           HorizontalTextAlignment="Center"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.FCLower}" Maximum="{Binding Settings.FCUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.FCTarget}"/>                        
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding FCTarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding FCLower}"                                    
+                MaximumValue="{Binding FCUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="1" Maximum="{Binding Settings.FCUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.FCLower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding FCLower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="1"                                    
+                MaximumValue="{Binding FCUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.FCLower}" Maximum="5" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.FCTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="1" HorizontalTextAlignment="Center"
+                           Text="{Binding FCUpper}"                          
+                           Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding FCLower}"                                    
+                MaximumValue="5"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+
+                        <Label Text="Chlorine Type: "
+                               HorizontalTextAlignment="Start"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <Picker x:Name="ChlorineType" 
+                                Title="Chlorine"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center"
+                                Grid.Row="3" Grid.Column="1"
+                                SelectedIndex="{Binding ChlorinePickerIndex}"
+                                SelectedItem="{Binding Settings.ChlorinePickerItem}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Bleach</x:String>
+                                    <x:String>Trichlor</x:String>
+                                    <x:String>Dichlor</x:String>
+                                    <x:String>Cal-hypo 48%</x:String>
+                                    <x:String>Cal-hypo 53%</x:String>
+                                    <x:String>Cal-hypo 65%</x:String>
+                                    <x:String>Cal-hypo 73%</x:String>
+                                    <x:String>Lithium-hypo</x:String>
+                                    <x:String>Chlorine gas</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Picker IsVisible="{Binding BleachVisible}"
+                                Title="Choose"
+                                HorizontalTextAlignment="Center"
+                                FontAttributes="Bold"
+                                Grid.Row="3" Grid.Column="3"
+                                SelectedIndex="{Binding BleachPickerIndex}"
+                                SelectedItem="{Binding BleachPickerItem}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>5%</x:String>
+                                    <x:String>6%</x:String>
+                                    <x:String>7%</x:String>
+                                    <x:String>8%</x:String>
+                                    <x:String>9%</x:String>
+                                    <x:String>10%</x:String>
+                                    <x:String>11%</x:String>
+                                    <x:String>12%</x:String>
+                                    <x:String>13%</x:String>
+                                    <x:String>14%</x:String>
+                                    <x:String>15%</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label Text="Measure by"
+                               IsVisible="{Binding FCMeasureIsVisible}"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0"/>
+                        <RadioButton x:Name="RadioWeightFC"
+                                     FontAttributes="None"
+                                     IsVisible="{Binding FCMeasureIsVisible}"
+                                     Content="Weight"                                     
+                                     Grid.Row="4" Grid.Column="1"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.FCMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="FC-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--                            BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioWeightBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeFC" 
+                                     IsVisible="{Binding FCMeasureIsVisible}"                                     
+                                     Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.FCMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"                                     
+                                     Grid.Row="4" Grid.Column="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="FC-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--                            BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>                        
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--PH Settings-->
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="PH Settings" 
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.PHLower}" Maximum="{Binding Settings.PHUpper}" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.PHTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding PHTarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding PHLower}"                                    
+                MaximumValue="{Binding PHUpper}"
+                MaximumDecimalPlaces="1" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                               Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="7.2" Maximum="{Binding Settings.PHUpper}" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.PHLower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding PHLower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="7.2"                                    
+                MaximumValue="{Binding PHUpper}"
+                MaximumDecimalPlaces="1" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                               Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.PHLower}" Maximum="7.8" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.PHUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="3" HorizontalTextAlignment="Center"
+                           Text="{Binding PHUpper}"
+                           Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding PHLower}"                                    
+                MaximumValue="7.8"
+                MaximumDecimalPlaces="1" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="To Raise pH"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Column="0" Grid.Row="3"/>
+                        <Picker x:Name="pHRaiseCorrection" 
+                               Title="Choose"
+                                FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               SelectedIndex="{Binding PHRaisePickerIndex}"
+                               SelectedItem="{Binding Settings.PHRaisePickerItem}"
+                               Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Soda Ash by Weight</x:String>
+                                    <x:String>Soda Ash by Volume</x:String>
+                                    <x:String>Borax by Weight</x:String>
+                                    <x:String>Borax by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label Text="To Lower pH"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0"/>
+                        <Picker x:Name="pHLowerCorrection" 
+                              Title="Choose"
+                                FontAttributes="Bold"
+                              HorizontalTextAlignment="Center"
+                              SelectedIndex="{Binding PHLowerPickerIndex}"
+                              SelectedItem="{Binding Settings.PHLowerPickerItem}"
+                              Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Muriatic Acid</x:String>
+                                    <x:String>Dry Acid by Weight</x:String>
+                                    <x:String>Dry Acid by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+                </Border>
+
+
+            </Grid>
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Alkalinity Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.AlkalineLower}" Maximum="{Binding Settings.AlkalineUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.AlkalineTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding AlkalineTarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding AlkalineLower}"                                    
+                MaximumValue="{Binding AlkalineUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="80" Maximum="{Binding Settings.AlkalineUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.AlkalineLower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding AlkalineLower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="80"                                    
+                MaximumValue="{Binding AlkalineUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.AlkalineLower}" Maximum="120" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.AlkalineUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="3" HorizontalTextAlignment="Center"
+                           Text="{Binding AlkalineUpper}"
+                           Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding AlkalineLower}"                                    
+                MaximumValue="120"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Measure by"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <RadioButton x:Name="RadioWeightAlkaline"
+                            Content="Weight"   
+                                     Grid.Row="3" Grid.Column="1"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.AlkalineMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="Alkaline-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext,  Source={x:Reference RadioWeightAlkaline},x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeAlkaline" 
+                            Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.AlkalineMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"
+                                     Grid.Row="3" Grid.Column="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="Alkaline-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeAlkaline}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+                    </Grid>
+                </Border>
+            </Grid>
+            
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Calcium Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CalciumLower}" Maximum="{Binding Settings.CalciumUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.CalciumTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding CalciumTarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding CalciumLower}"                                    
+                MaximumValue="{Binding CalciumUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="200" Maximum="{Binding Settings.CalciumUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.CalciumLower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding CalciumLower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="200"                                    
+                MaximumValue="{Binding CalciumUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CalciumLower}" Maximum="400" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.CalciumUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="3" HorizontalTextAlignment="Center"
+                           Text="{Binding CalciumUpper}"
+                           Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding CalciumLower}"                                    
+                MaximumValue="400"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="To Raise CH"
+                           Grid.Row="3" Grid.Column="0"/>                        
+                        <Picker x:Name="CalciumRaiseCorrection" 
+                              Title="Choose"
+                                FontAttributes="Bold"
+                              SelectedIndex="{Binding CalciumRaisePickerIndex}"
+                              SelectedItem="{Binding Settings.CalciumRaisePickerItem}"
+                              Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Calcium Chloride by Weight</x:String>
+                                    <x:String>Calcium Chloride by Volume</x:String>
+                                    <x:String>Chloride Dihydrate Weight</x:String>
+                                    <x:String>Chloride Dihydrate by Volume</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Padding="10,1">
+                <Border Stroke="Black">
+                    <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="Cyanuric Acid Settings"
+                           Grid.ColumnSpan="3"/>
+                        <Label Text="Target"
+                           Grid.Row="1"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CYALower}" Maximum="{Binding Settings.CYAUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0"
+                                                Value="{Binding Settings.CYATarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding CYATarget}"
+                           Grid.Row="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding CYALower}"                                    
+                MaximumValue="{Binding CYAUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="20" Maximum="{Binding Settings.CYAUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="1"
+                                                Value="{Binding Settings.CYALower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding CYALower}"
+                           Grid.Row="2" Grid.Column="1">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="20"                                    
+                MaximumValue="{Binding CYAUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.CYALower}" Maximum="60" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2"
+                                                Value="{Binding Settings.CYAUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                               MaxLength="4" HorizontalTextAlignment="Center"
+                               Text="{Binding CYAUpper}"
+                               Grid.Row="2" Grid.Column="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding CYALower}"                                    
+                MaximumValue="60"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="To Raise CYA"
+                               Grid.Row="3" Grid.Column="0"/>
+                        <Picker x:Name="CYARaiseCorrection" 
+                                Title="Choose"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center"
+                                SelectedIndex="{Binding CYARaisePickerIndex}"
+                                SelectedItem="{Binding Settings.CYARaisePickerItem}"
+                                Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="2">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Stabalizer by Weight</x:String>
+                                    <x:String>Stabalizer by Volume</x:String>
+                                    <x:String>Stabalizer liquid</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>                        
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Padding="10,1">
+                <Border Stroke="Black" Style="{StaticResource Border}">
+                    <Grid ColumnDefinitions="*,*,*,*,*,*"
+                      RowDefinitions="*,*,*,*,*,*"
+                      Padding="10" RowSpacing="0" ColumnSpacing="0">
+
+                        <Label Text="Borate Settings"
+                            Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" />
+
+                        <Label Text="Target"
+                           Grid.Row="1" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.BorateLower}" Maximum="{Binding Settings.BorateUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateTarget}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding BorateTarget}"
+                           Grid.Row="3" Grid.ColumnSpan="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding BorateLower}"                                    
+                MaximumValue="{Binding BorateUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Lower Range"
+                           Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="20" Maximum="{Binding Settings.BorateUpper}" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateLower}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="4" HorizontalTextAlignment="Center"
+                           Text="{Binding BorateLower}"
+                           Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="20"                                    
+                MaximumValue="{Binding BorateUpper}"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Upper Range"
+                           Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
+                        <editors:SfNumericEntry Minimum="{Binding Settings.BorateLower}" Maximum="60" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                HorizontalTextAlignment="Center" 
+                                                VerticalTextAlignment="Center"
+                                                Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
+                                                Value="{Binding Settings.BorateUpper}"/>
+                        <!--<Entry Keyboard="Numeric" FontSize="15"  
+                           MaxLength="2" HorizontalTextAlignment="Center"
+                           Text="{Binding BorateUpper}"
+                           Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="{Binding BorateLower}"                                    
+                MaximumValue="60"
+                MaximumDecimalPlaces="0" />
+                            </Entry.Behaviors>
+                        </Entry>-->
+                        <Label Text="Measure by"
+                               HorizontalTextAlignment="Start"                               
+                           Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <RadioButton x:Name="RadioWeightBorax"
+                            Content="Weight"  
+                                     Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+                                     Value="0"                              
+                                     IsChecked="{Binding Settings.BorateMeasureWeight}">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="Borate-Weight"/>
+                            </RadioButton.Behaviors>
+                            <!--                            BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioWeightBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+
+                        <RadioButton x:Name="RadioVolumeBorax" 
+                            Content="Volume"                                     
+                                     Value="1"
+                                     IsChecked="{Binding Settings.BorateMeasureWeight, Converter={StaticResource InvertedBoolConverter}}"
+                                     Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
+                            <RadioButton.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                   EventName="CheckedChanged"
+                                   Command="{Binding RadioButtonChangedCommand}" 
+                                   CommandParameter="Borate-Volume"/>
+                            </RadioButton.Behaviors>
+                            <!--                            BindingContext="{Binding Path=BindingContext, Source={x:Reference RadioVolumeBorax}, x:DataType=RadioButton}"-->
+
+                        </RadioButton>
+                        <Label Text="Borate Adjustment:"
+                               HorizontalTextAlignment="Start"                               
+                               Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Picker x:Name="BorateType" 
+                                Title="Choose"
+                                FontAttributes="Bold"
+                                SelectedItem="{Binding Settings.BoratePickerItem}"
+                                SelectedIndex="{Binding BoratePickerIndex}"
+                                Grid.Row="4" Grid.Column="3" >
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Borax</x:String>
+                                    <x:String>Boric acid</x:String>
+                                    <x:String>Tetraborate pentahydrate</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label Text="Include in Calculations"
+                               Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                               HorizontalTextAlignment="End"/>
+                        <CheckBox IsChecked="{Binding Settings.IncludeBorate}"
+                                  Grid.Row="5" Grid.Column="4"
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="Start"/>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Button Text="Save" Command="{Binding SaveSettingsCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

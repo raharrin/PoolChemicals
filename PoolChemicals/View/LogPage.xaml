@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+           xmlns:model="clr-namespace:PoolChemicals.Model"  
+           xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel" 
+             xmlns:view="clr-namespace:PoolChemicals.View"   
+           x:Class="PoolChemicals.View.LogPage"  
+             x:DataType="viewmodel:LogViewModel"
+           Title="Log Page">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        </Style>
+    </ContentPage.Resources>
+
+
+
+  <VerticalStackLayout>
+        <Grid Padding="0,5">
+
+            <Border Stroke="Black" Margin="5,0,5,0"  
+                  BackgroundColor="White">  
+              <Grid RowDefinitions="*,*" ColumnDefinitions="*,*" Padding="10" ColumnSpacing="5" RowSpacing="5">  
+                  
+                  <!--<CollectionView  Grid.Column="0"  
+                      x:Name="multiSelectCollectionView"  
+                      SelectionMode="Multiple">  
+                      <CollectionView.ItemsSource>  
+                          <x:Array Type="{x:Type x:String}">  
+                                <x:String>All</x:String>  
+                                <x:String>Sat Index</x:String>  
+                                <x:String>Salt</x:String>  
+                                <x:String>FC</x:String>
+                                <x:String>PH</x:String>
+                                <x:String>Alkaline</x:String>
+                                <x:String>Calcium</x:String>
+                                <x:String>CYA</x:String>
+                                <x:String>Borate</x:String>
+                                <x:String>Temp</x:String>
+                            </x:Array>  
+                      </CollectionView.ItemsSource>  
+                  </CollectionView>
+                    <DatePicker x:Name="myDatePicker"
+
+    MinimumDate="{Binding MinDate}"  
+    MaximumDate="{Binding MaxDate}"  
+    Date="{Binding CurDate}"  
+    Grid.Column="1"/>-->
+
+                    <Button Text="Add Bogus data"  
+                          IsVisible="True"  
+                          Clicked="AddData"  
+                          Grid.Row="1" Grid.Column="0"/>  
+                  <Button Text="View Results"  
+                          IsVisible="true"  
+                          Clicked="ViewResults"  
+                          Grid.Row="1" Grid.Column="1" />
+                    <!--<Button Text="View Results2"  
+                          IsVisible="true"  
+                          BindingContext="{ViewResultsCommand}" 
+                          Grid.Row="1" Grid.Column="1" />-->
+                </Grid>  
+          </Border>  
+      </Grid>  
+
+      <CollectionView x:Name="logList" Grid.Row="2" IsVisible="false">  
+          <CollectionView.Header>  
+
+              <Grid RowDefinitions="*" ColumnDefinitions="44,44,44,44,44,44,44,44,44">  
+                  <Label Text="Temp" Grid.Column="0"/>  
+                  <Label Text="SI"  Grid.Column="1"/>  
+                  <Label Text="SA"  Grid.Column="2"/>  
+                  <Label Text="FC"  Grid.Column="3"/>  
+                  <Label Text="PH"  Grid.Column="4"/>  
+                  <Label Text="AL"  Grid.Column="5"/>  
+                  <Label Text="CA"  Grid.Column="6"/>  
+                  <Label Text="CYA"  Grid.Column="7"/>  
+                  <Label Text="BO"  Grid.Column="8"/>  
+
+              </Grid>  
+
+          </CollectionView.Header>  
+          <CollectionView.ItemTemplate>  
+              <DataTemplate x:DataType="model:LogTable">  
+                  <Grid RowDefinitions="*,*" ColumnDefinitions="44,44,44,44,44,44,44,44,44" Padding="5">  
+                      <Label Grid.Column="0"  Text="{Binding Tempurature}" />  
+                      <Label Grid.Column="1"  Text="{Binding SaturationIndex}" />  
+                      <Label Grid.Column="2"  Text="{Binding Salt}" />  
+                      <Label Grid.Column="3"  Text="{Binding FC}" />  
+                      <Label Grid.Column="4"  Text="{Binding PH}" />  
+                      <Label Grid.Column="5"  Text="{Binding Alkaline}" />  
+                      <Label Grid.Column="6"  Text="{Binding Calcium}" />  
+                      <Label Grid.Column="7"  Text="{Binding CYA}" />  
+                      <Label Grid.Column="8"  Text="{Binding Borate}" />  
+                      <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalTextAlignment="End" Text="{Binding Date}" />
+                      <!--<Label Grid.Row="1" Grid.Column="5" HorizontalTextAlignment="End" Text="{Binding PoolId}" />-->
+
+                        <Button x:Name="Delete" Padding="0"  
+                              ImageSource="delete.png" MaximumHeightRequest="20" Background="White"  
+                              Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="0"  
+                              Clicked="DeleteLog"/>  
+                  </Grid>  
+
+              </DataTemplate>  
+          </CollectionView.ItemTemplate>  
+      </CollectionView>  
+  </VerticalStackLayout>  
+</ContentPage>

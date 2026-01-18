@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="PoolChemicals.View.WaterGuidelinesPage"
+			 xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel"
+			 x:DataType="viewmodel:WaterGuidelinesViewModel"
+			 Title="Water Guidelines">
+
+
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*,*">
+                <Border Grid.Row="0" Grid.Column="0">
+                    <Label Text="What" FontSize="15"
+					   VerticalTextAlignment="Center"
+				   HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="Min." FontSize="15"
+					   VerticalTextAlignment="Center"
+				   HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="Ideal" FontSize="15"
+					   VerticalTextAlignment="Center"
+				   HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="Max." FontSize="15"
+					   VerticalTextAlignment="Center"
+				   HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="ANSI/PHTA/ICC" FontSize="15"
+					   VerticalTextAlignment="Center"
+						   HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <!-- Row 1-->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*,*"
+              Padding="0,0,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Free Chlorine, ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="1.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Label Text="2.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="2.0 - 4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <Label Text="2.0 - 4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Label Text="5.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="1; 4; 5; 9; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="4">
+                    <Label Text="3; 6; 11*" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <!-- Row 2 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*,*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Combined Chlorine, ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="1.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Label Text="2.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="2.0 - 4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <Label Text="2.0 - 4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Label Text="5.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="1; 4; 5; 9; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="4">
+                    <Label Text="3; 6; 11*" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <!-- Row 3 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*,*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Total Bromine, ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="1.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Label Text="2.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="2.0 - 3.0&#10;Res&#10;3.0 - 4.0&#10;Public" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <Label Text="2.0 - 3.0&#10;Res&#10;4.0 - 6.0&#10;Public" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="8.0*" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Label Text="8.0*" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="1; 4; 5; 9; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="4">
+                    <Label Text="3; 6; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <!-- Row 5 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="pH" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="7.2" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="7.4 - 7.6" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="7.8" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <!-- Row 6 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*,*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Calcium Hardness,&#10;ppm as CaCO" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label Text="150" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Label Text="100" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="200 - 400" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <Label Text="150 - 250" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="1,000" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Label Text="800" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="1; 4; 5; 9; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="4">
+                    <Label Text="3; 6; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 7 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Total Alkalinity,&#10;ppm as CaCO" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="60" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="80 - 100**&#10;100 - 120**" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="4.0" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 8 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Cyanuric Acid, ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="10" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="30 - 50" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="100" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 9 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Tempurature&#10;F" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="Personal preference" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="Pools:&#10;78 - 94 F&#10;Spas: up to 104 F depending on spa type and use" 
+                       FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="104 F" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 10 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Total Dissolved Solids, ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="N/A" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="N/A" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="1,500 ppm over start up****" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 11 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Visible Algae" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="None" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="None" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="None" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Faciilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 12 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Bacteria" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="None" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="None" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="Local Code" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 13 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Ozone (in air), ppm" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="-" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="-" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="0.1 over 8 hr. time-wtd. avg. and 0.3 for any 15 min. period" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="All Facilities" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Row 14 -->
+            <Grid ColumnDefinitions="100,*,75,*,125"
+					  RowDefinitions="*"
+              Padding="0,2.5,0,2.5">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                    <Label Text="Orp in MV" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Text="650" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label Text="-" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3">
+                    <Label Text="-" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label Text="1; 9; 11" FontSize="15"
+					   VerticalTextAlignment="Center"
+  				       HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+            <Label Text="* For waters containing > 50 ppm Cynuric Acid."
+                        FontSize="15" FontAttributes="Italic"/>
+            <Label Text="** For calcium hypchlorite, litium hypochlorite, or sodium hypochlorite."
+                        FontSize="15" FontAttributes="Italic"/>
+            <Label Text="*** For sodium, dichloe, trichlor, chlorine gas, or bromine."
+                        FontSize="15" FontAttributes="Italic"/>
+            <Label Text="**** Including inorganic salt added."
+                        FontSize="15" FontAttributes="Italic"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

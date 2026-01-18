@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"             
+             xmlns:gauge="clr-namespace:Syncfusion.Maui.Gauges;assembly=Syncfusion.Maui.Gauges"
+             xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel"
+             x:Class="PoolChemicals.MainPage"
+             x:DataType="viewmodel:MainViewModel">
+
+    <!--
+
+                 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"             
+             xmlns:controls="clr-namspace:PoolChemicals.ContentViews"
+
+    -->
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label VerticalTextAlignment="Center">
+
+                    <Label.Text>
+                        <MultiBinding StringFormat="Version: {0}.{1}">
+                            <Binding Path="AppVersion"/>
+                            <Binding Path="AppBuild"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label>
+                    <Label.Text>
+                        <MultiBinding StringFormat="Pool Volume: {0} {1}">
+                            <Binding Path="Settings.Volume"/>
+                            <Binding Path="Settings.SizeUnit"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+
+                <Label Text="Water Tempurature: "/>
+                <editors:SfNumericEntry x:Name="WaterTempEntry" 
+                                        Minimum="32" Maximum="100"
+                                        MaximumNumberDecimalDigits="0" 
+                                        FontSize="15" FontAttributes="Bold"
+                                        AllowNull="False"
+                                        HorizontalTextAlignment="Center"
+                                        Value="{Binding Settings.WaterTemp}"
+                                        ReturnCommand="{Binding Logic.EnterWaterTempCommand}"/>
+                <Label Text="{Binding Settings.TempUnit}"/>
+
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Show in-range recommendataions: "/>
+                <CheckBox x:Name="CheckBoxTarget"                          
+                          IsChecked="{Binding Logic.ShowInRange}"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Start"
+                          Margin="10,0,0,0">
+
+                </CheckBox>
+            </HorizontalStackLayout>
+            <!--<VerticalStackLayout IsVisible="true">
+                <Label Text="{Binding Settings.Standard,StringFormat='Standard: {0}'}"/>
+                <Label Text="{Binding Settings.StandardIndex,StringFormat='Standard Index: {0}'}"/>
+                <Label Text="{Binding Logic.SaltReading,StringFormat='Salt Reading: {0}'}"/>
+                <Label Text="{Binding Logic.FCReading}"/>
+                <Label Text="{Binding Logic.PHReading}"/>
+                <Label Text="{Binding Logic.AlkalineReading}"/>
+                <Label Text="{Binding Logic.CalciumReading}"/>
+                <Label Text="{Binding Logic.CYAReading}"/>
+                <Label Text="{Binding Logic.BorateReading}"/>
+            </VerticalStackLayout>-->
+            
+            <!-- CSI Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black" Margin="5,0,5,0"
+                        BackgroundColor="White">
+                    <VerticalStackLayout Padding="10">
+
+                        <Label Text="Saturation Index Calculation requires pH, Alkaline, Calcium, CYA, Borate*, Salt and Water Tempurature.
+Results less than -0.6 can cause problems for plaster, tile, stone, and pebble pools.
+Greater than 0.6 can lead to problems for all pools. *If used.&#10;"
+                               FontSize="15" FontAttributes="Bold"/>
+                        <Grid ColumnDefinitions="*,*"
+                          RowDefinitions="*"
+                          Padding="10">
+                            <Label HorizontalOptions="Center" 
+                               Grid.Column="0"
+                               TextColor="Blue"
+                               Text="{Binding Logic.SaturationIndex,StringFormat='Current SI: {0}'}"/>
+
+                            <Label HorizontalOptions="Center"
+                               Grid.Column="1"
+                               TextColor="Green"
+                               Text="{Binding Logic.SaturationIndexTarget,StringFormat='Target SI: {0}'}"/>
+                        </Grid>
+                        <gauge:SfLinearGauge Minimum="-1" 
+                                     Maximum="1" 
+                                     Interval=".25" 
+                                     Scale="1">
+                            <gauge:SfLinearGauge.Ranges>
+                                <gauge:LinearRange StartValue="-1"
+                                  EndValue="-.75"
+                                  Fill="Red" />
+                                <gauge:LinearRange StartValue="-.75"
+                                  EndValue="-.4"
+                                  Fill="Orange" />
+                                <gauge:LinearRange StartValue="-.4"
+                                  EndValue=".4"
+                                  Fill="Green" />
+                                <gauge:LinearRange StartValue=".4"
+                                  EndValue=".75"
+                                  Fill="Orange" />
+                                <gauge:LinearRange StartValue=".75"
+                                  EndValue="1"
+                                  Fill="Red" />
+
+                            </gauge:SfLinearGauge.Ranges>
+                            <gauge:SfLinearGauge.MarkerPointers>
+                                <gauge:LinearShapePointer Value="{Binding Logic.SaturationIndex}" IsInteractive="True" 
+                                              Fill="Blue"
+                                              OffsetY="-5"/>
+                                <gauge:LinearShapePointer Value="{Binding Logic.SaturationIndexTarget}" IsInteractive="True" 
+                                              Fill="Green"
+                                              ShapeType="Triangle"
+                                              OffsetY="16"/>
+                            </gauge:SfLinearGauge.MarkerPointers>
+                        </gauge:SfLinearGauge>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Salt Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black" 
+                        Margin="5,0,5,0">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*"
+                          Padding="10">
+                        <Border Stroke="Black"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                Margin="5,0,5,0"
+                                BackgroundColor="LightBlue">
+                            <VerticalStackLayout>
+                                <Label Text="SA"                              
+                               FontSize="30" FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.SaltLower"/>
+                                            <Binding Path="Settings.SaltUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.SaltTarget,StringFormat='Target: {0}'}"  
+                                       FontSize="12" FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"/>
+                            
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Label Text="Current: "
+                               HorizontalTextAlignment="Center"
+
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="0" Maximum="5000" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold" 
+                                                ReturnType="Default"                                                
+                                                IsEnabled="True"                                               
+                                                SmallChange="100"
+                                                UpDownPlacementMode="Inline"
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Start"
+                                                Value="{Binding Logic.SaltReading}"
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterSaltCommand}"/>
+                        <Label Text="{Binding Logic.SaltResults}"
+                               IsVisible="{Binding Logic.SaltIsVisible}"
+                               Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="4"/>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!-- FC Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black" Margin="5,0,5,0">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="Yellow">
+                            <VerticalStackLayout>
+                                <Label Text="FC"
+                                       HorizontalTextAlignment="Center"
+                                       FontSize="30"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.FCLower"/>
+                                            <Binding Path="Settings.FCUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.FCTarget,StringFormat='Target: {0}'}"
+                                       FontSize="12"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current: "
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="0" Maximum="9" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"                                                
+                                                SmallChange=".5"
+                                                UpDownPlacementMode="Inline"                    
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Center"
+                                                Value="{Binding Logic.FCReading}"
+                                                
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterFCCommand}"/>
+
+                        <Label Text="{Binding Logic.FCResults}"
+                            IsVisible="{Binding Logic.FCIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                            <!--<Label.Text>
+                                <MultiBinding StringFormat="Add {0} oz of {2}% Bleach">
+                                    <Binding Path="AddBleach"/>
+                                    <Binding Path="AddBleach"/>
+                                    <Binding Path="Bleach"/>
+                                </MultiBinding>
+                            </Label.Text>-->
+                        </Label>
+                        <!--<Label IsVisible="{Binding FCCIsVisible}"
+                               FontSize="15" FontAttributes="Bold"
+                               Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
+                            -->
+                        <!--<Label.Text>
+                                <MultiBinding StringFormat="Add {0} oz by weight or {1} oz by volume of {2}.">
+                                    <Binding Path="ByWeight"/>
+                                    <Binding Path="ByVolume"/>
+                                    <Binding Path="ChlorinePickerSelection"/>
+                                </MultiBinding>
+                            </Label.Text>-->
+                        <!--
+                        </Label>-->
+
+                        <Label IsVisible="{Binding Logic.FCNoteIsVisible}"
+                               Text="Note: Dichlor and Trichlor increses CYA and lower pH, while Cal-hypo will add Calcium."
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- pH Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black"  Margin="5,0,5,0">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="Orange">
+                            <VerticalStackLayout>
+                                <Label Text="pH"
+                               HorizontalTextAlignment="Center"
+                               FontSize="30"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.PHLower"/>
+                                            <Binding Path="Settings.PHUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.PHTarget,StringFormat='Target: {0}'}"
+                                       FontSize="12" 
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current: "
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="6" Maximum="9" MaximumNumberDecimalDigits="1"
+                                                FontSize="15" FontAttributes="Bold"
+                                                SmallChange=".2"
+                                                UpDownPlacementMode="Inline"                                                                                             
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Center"
+                                                Value="{Binding Logic.PHReading}"
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterPHCommand}"/>
+
+
+                        <Label IsVisible="{Binding Logic.PHRaiseIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                            <Label.Text>
+                                <MultiBinding StringFormat="With Alkalinity of {0}{1}{2}">
+                                    <Binding Path="Logic.AlkalineReading"/>
+                                    <Binding Path="Logic.BorateNote"/>
+                                    <Binding Path="Logic.PHAdjustment"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+
+                        <Label IsVisible="{Binding Logic.PHLowerIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                               Text="{Binding Logic.PHAdjustment}">
+                        </Label>
+
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Alkaline Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black"  Margin="5,0,5,0" >
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="LightGreen">
+                            <VerticalStackLayout>
+                                <Label Text="AL"
+                               HorizontalTextAlignment="Center"
+                               FontSize="30"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.AlkalineLower"/>
+                                            <Binding Path="Settings.AlkalineUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.AlkalineTarget,StringFormat='Target: {0}'}"
+                                       FontSize="12"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current:"
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="0" Maximum="140" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                SmallChange="10"
+                                                UpDownPlacementMode="Inline"                                                
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Center"
+                                                Value="{Binding Logic.AlkalineReading}"
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterAlkalineCommand}"/>
+
+
+                        <Label Text="{Binding Logic.BakingSodaAdd}"
+                               IsVisible="{Binding Logic.AlkalineIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"/>
+
+                        <Label Text="{Binding Logic.AlkalineNote}"
+                               IsVisible="{Binding Logic.AlkalineNoteIsVisible}"
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Calcium Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black"
+                        Margin="5,0,5,0"
+                        BackgroundColor="White">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="LightSalmon">
+                            <VerticalStackLayout>
+                                <Label Text="CA"
+                               HorizontalTextAlignment="Center"
+                               FontSize="30"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.CalciumLower"/>
+                                            <Binding Path="Settings.CalciumUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.CalciumTarget,StringFormat='Target: {0}'}"
+                                       FontSize="12"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current:"
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="100" Maximum="900" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                SmallChange="10"
+                                                UpDownPlacementMode="Inline"                                                
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Center"
+                                                
+                                                Value="{Binding Logic.CalciumReading}"
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterCalciumCommand}"/>
+
+                        <Label Text="{Binding Logic.CalciumResults}"
+                               IsVisible="{Binding Logic.CalciumIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>
+
+                        <Label Text="Note: Watch your CSI when the Calcium reading is near the upper or lower portion of the range."
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- CYA Grid-->
+            <Grid Padding="0,5">
+                <Border Stroke="Black"
+                    Margin="5,0,5,0">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="Cyan">
+                            <VerticalStackLayout>
+                                <Label Text="CYA"
+                               HorizontalTextAlignment="Center"
+                               FontSize="30"
+                               Grid.Row="1" Grid.Column="0"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.CYALower"/>
+                                            <Binding Path="Settings.CYAUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.CYATarget,StringFormat='Target: {0}'}"
+                                       FontSize="12"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current:"
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="0" Maximum="100" MaximumNumberDecimalDigits="0"
+                                                FontSize="15" FontAttributes="Bold"
+                                                SmallChange="5"
+                                                UpDownPlacementMode="Inline"                                                
+                                                HorizontalTextAlignment="Start" 
+                                                VerticalTextAlignment="Center"
+                                                Value="{Binding Logic.CYAReading}"
+                                                Grid.Row="0" Grid.Column="2"
+                                                ReturnCommand="{Binding Logic.EnterCYACommand}"/>
+
+
+                        <Label Text="{Binding Logic.CYAResults}"
+                               IsVisible="{Binding Logic.CYAIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"/>
+
+                        <Label Text="Note: It can take solid stabilizer 24 to 48 hours to dissolve."                               
+                               IsVisible="{Binding Logic.CYANotesIsVisible}" 
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Borate Grid-->
+            <Grid Padding="0,5" IsVisible="{Binding Settings.IncludeBorate}">
+                <Border Stroke="Black" 
+                        Margin="5,0,5,0">
+                    <Grid ColumnDefinitions="90,70,*"
+                          RowDefinitions="*,*,*"
+                          Padding="10" RowSpacing="0" ColumnSpacing="0">
+                        <Border Stroke="Black" Margin="5,0,5,0"
+                                Grid.Row="0" Grid.RowSpan="2"
+                                BackgroundColor="LightGray">
+                            <VerticalStackLayout>
+                                <Label Text="BO"
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="30" 
+                                       Grid.Row="1" Grid.Column="0"/>
+                                <Label
+                                    FontSize="12" FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Range&#x0d;&#x0a;{0} - {1}">
+                                            <Binding Path="Settings.BorateLower"/>
+                                            <Binding Path="Settings.BorateUpper"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Settings.BorateTarget,StringFormat='Target: {0}'}"
+                                        FontSize="12" 
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Current:"
+                               HorizontalTextAlignment="Center"
+                               Grid.Row="0" Grid.Column="1"/>
+                        <editors:SfNumericEntry Minimum="0" Maximum="100" MaximumNumberDecimalDigits="0"
+                                        FontSize="15" FontAttributes="Bold"
+                                        SmallChange="5"
+                                        UpDownPlacementMode="Inline"                                               
+                                        HorizontalTextAlignment="Start" 
+                                        VerticalTextAlignment="Center"
+                                        Value="{Binding Logic.BorateReading}"
+                                        Grid.Row="0" Grid.Column="2"
+                                        ReturnCommand="{Binding Logic.EnterBorateCommand}"/>
+                        <Label Text="{Binding Logic.BorateResults}"
+                               IsVisible="{Binding Logic.BorateIsVisible}"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"/>
+                        <Label Text="Note: The pH should be tested and adjusted as needed after increasing the borate level."
+                               IsVisible="{Binding Logic.BorateIsVisible}"
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid ColumnDefinitions="*,*" Padding="5" ColumnSpacing="5">
+                <Button Text="Calculate All" 
+                        Grid.Row="0" Grid.Column="0"
+                        Command="{Binding Logic.CalculateAllCommand}"/>
+                <Button Text="Log Results"
+                        Grid.Row="0" Grid.Column="1"
+                        IsVisible="true"
+                        Command="{Binding Logic.LogResultsCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

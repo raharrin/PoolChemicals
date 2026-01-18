@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+           xmlns:model="clr-namespace:PoolChemicals.Model"  
+           xmlns:viewmodel="clr-namespace:PoolChemicals.ViewModel" 
+             xmlns:view="clr-namespace:PoolChemicals.View"               
+            xmlns:dataForm="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"  
+            xmlns:local="clr-namespace:PoolChemicals.ViewModel"  
+            x:Class="PoolChemicals.View.PoolPage"  
+            Title="PoolPage">  
+
+   <Grid BackgroundColor="{DynamicResource SfDataFormNormalBackground}">  
+       <Border Stroke="{OnPlatform Default=Transparent, WinUI={DynamicResource SfDataFormNormalEditorStroke}, MacCatalyst={DynamicResource SfDataFormNormalEditorStroke}}"  
+               MaximumHeightRequest="{OnPlatform Default=1000,MacCatalyst=800}"  
+               VerticalOptions="{OnPlatform MacCatalyst=Center}"  
+               Grid.ColumnSpan="{OnPlatform Default=2, WinUI=1, MacCatalyst=1}"  
+               Grid.Column="0" WidthRequest="{OnPlatform WinUI=400, MacCatalyst=600, Default=-1}"  
+               HorizontalOptions="{OnPlatform WinUI=Center, MacCatalyst=Center, Default=Fill}" Padding="0">  
+           <Border.StrokeShape>  
+               <RoundRectangle CornerRadius="10" />  
+           </Border.StrokeShape>  
+
+           <Grid RowDefinitions="0.9*, 1, 0.1*" BackgroundColor="{DynamicResource SfDataFormNormalBackground}">  
+
+               <dataForm:SfDataForm x:Name="poolForm"  
+                                    AutoGenerateItems="False"  
+                                    DataObject="{Binding ContactFormModel}"  
+                                    ValidationMode="PropertyChanged"  
+                                    LayoutType="TextInputLayout">  
+                   <dataForm:SfDataForm.TextInputLayoutSettings>  
+                       <dataForm:TextInputLayoutSettings ShowHelperText="True"  
+                                                         FocusedStroke="{DynamicResource SfDataFormFocusedEditorStroke}"/>  
+                   </dataForm:SfDataForm.TextInputLayoutSettings>  
+
+                   <dataForm:SfDataForm.Items>  
+                       <dataForm:DataFormGroupItem Name="Name">  
+                           <dataForm:DataFormGroupItem.Items>  
+                               <dataForm:DataFormTextItem FieldName="LastName" ShowLeadingView="True">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label Text="&#xe760;"  
+                                              FontSize="18"  
+                                              TextColor="Gray"  
+                                              FontFamily="MauiSampleFontIcon"  
+                                              HeightRequest="24"  
+                                              VerticalTextAlignment="End" />  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+                           </dataForm:DataFormGroupItem.Items>  
+                       </dataForm:DataFormGroupItem>  
+
+                       <dataForm:DataFormGroupItem Name="Address" ColumnCount="2">  
+                           <dataForm:DataFormGroupItem.Items>  
+                               <dataForm:DataFormMultilineItem FieldName="Address" ColumnSpan="2">  
+                                   <dataForm:DataFormMultilineItem.LeadingView>  
+                                       <Label Text="&#xe76e;"  
+                                              FontSize="18"  
+                                              TextColor="Gray"  
+                                              FontFamily="MauiSampleFontIcon"  
+                                              HeightRequest="24"  
+                                              VerticalTextAlignment="End" />  
+                                   </dataForm:DataFormMultilineItem.LeadingView>  
+                               </dataForm:DataFormMultilineItem>  
+
+                               <dataForm:DataFormTextItem FieldName="City" ColumnSpan="2">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label/>  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+                               <dataForm:DataFormTextItem FieldName="State">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label/>  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+                               <dataForm:DataFormMaskedTextItem FieldName="ZipCode" Mask="#####-####" Keyboard="{OnPlatform Default=Numeric, Android=Text}"/>  
+                           </dataForm:DataFormGroupItem.Items>  
+                       </dataForm:DataFormGroupItem>  
+
+                       <dataForm:DataFormTextItem FieldName="Email" Keyboard="Email">  
+                           <dataForm:DataFormTextItem.LeadingView>  
+                               <Label Text="&#xe75c;"  
+                                      FontSize="18"  
+                                      TextColor="Gray"  
+                                      FontFamily="MauiSampleFontIcon"  
+                                      HeightRequest="24"  
+                                      VerticalTextAlignment="End" />  
+                           </dataForm:DataFormTextItem.LeadingView>  
+                       </dataForm:DataFormTextItem>  
+
+                       <dataForm:DataFormGroupItem Name="Pool Data">  
+                           <dataForm:DataFormGroupItem.Items>  
+                               <dataForm:DataFormTextItem FieldName="Volume" ShowLeadingView="True">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label Text="&#xe760;"  
+                                              FontSize="18"  
+                                              TextColor="Gray"  
+                                              FontFamily="MauiSampleFontIcon"  
+                                              HeightRequest="24"  
+                                              VerticalTextAlignment="End" />  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+                               <dataForm:DataFormTextItem FieldName="Pool Surface" ShowLeadingView="True">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label />  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+
+                               <dataForm:DataFormTextItem FieldName="Chlorine Source" ShowLeadingView="True">  
+                                   <dataForm:DataFormTextItem.LeadingView>  
+                                       <Label/>  
+                                   </dataForm:DataFormTextItem.LeadingView>  
+                               </dataForm:DataFormTextItem>  
+                           </dataForm:DataFormGroupItem.Items>  
+                       </dataForm:DataFormGroupItem>  
+                   </dataForm:SfDataForm.Items>  
+               </dataForm:SfDataForm>  
+               <Line Grid.Row="1" Background="Red" />  
+               <Button Text="Save" Grid.Row="2" x:Name="saveButton" Background="{DynamicResource SfDataFormFocusedEditorStroke}" TextColor="{AppThemeBinding Light={StaticResource ButtonForegroundLight}, Dark={StaticResource ButtonForegroundDark}}"  
+                       HeightRequest="40"  
+                       VerticalOptions="Center"  
+                       FontSize="16"  
+                       CornerRadius="20"  
+                       WidthRequest="200"  
+                       HorizontalOptions="Center" />  
+           </Grid>  
+       </Border>  
+   </Grid>  
+
+</ContentPage>
